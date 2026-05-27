@@ -11,19 +11,20 @@ export default function NoteDetailsClient() {
 
   const {
     data: note,
-    isLoading,
-    error,
+    isPending,
+    isError,
   } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
     enabled: Boolean(id),
+    refetchOnMount: false,
   });
 
-  if (isLoading) {
+  if (isPending) {
     return <p>Loading, please wait...</p>;
   }
 
-  if (error || !note) {
+  if (isError || !note) {
     return <p>Something went wrong.</p>;
   }
 
